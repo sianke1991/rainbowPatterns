@@ -1,0 +1,67 @@
+//Rainbow Patterns
+                    //sianke1991
+int currentState=0;
+int numPatterns=4;
+
+void setup(){
+  size(500,500);
+  colorMode(HSB,360,100,100);
+  noStroke();
+  textSize(width/25);
+  textAlign(CENTER,BOTTOM);
+}
+
+void draw(){
+  background(0,0,90);
+  if(currentState==0){
+    for(int i=0;i<720;i++){
+      fill(i/2.,100,100);
+      arc(width/2.,height/2.,min(width,height)*0.7,min(width,height)*0.7,i/2.*PI/180,(i+1)/2.*PI/180);
+    } //i loop
+    fill(0);
+    text("Rainbow Pattern "+(currentState+1),width/2,height-20);
+  } //pattern1
+  
+  else if(currentState==1){
+    for(int i=0;i<720;i++){
+      fill(i/2.,100,100);
+      float leftBound=map(i-0.5,0,720,width/5.,width*4/5.);
+      float rightBound=map(i+0.5,0,720,width/5.,width*4/5.);
+      rect(leftBound,height/4.,rightBound-leftBound,height/2.);
+    } //i loop
+    fill(0);
+    text("Rainbow Pattern "+(currentState+1),width/2,height-20);
+  } //pattern2
+  
+  else if(currentState==2){
+    for(int i=0;i<720;i++){
+      fill(i/2.,100,100);
+      float widthLength=map(i,0,720,width*3/5.,0);
+      float heightLength=map(i,0,720,height*3/5.,0);
+      rect(width/5.,height/5.,widthLength,heightLength);
+    } //i loop
+    fill(0);
+    text("Rainbow Pattern "+(currentState+1),width/2,height-20);
+  } //pattern3
+  
+  else if(currentState==3){
+    for(int i=0;i<720;i++){
+      for(int j=0;j<720;j++){
+        float distance=dist(0,0,width/5.*3/720*i,height/5.*3/720*j);
+        float colorValue=map(distance,0,dist(0,0,width/5.*3,height/5.*3),0,360);
+        fill(colorValue,100,100);
+        ellipse(width/5.+width/5.*3/720*i,height/5.+height/5.*3/720*j,1,1);
+      } //j loop
+    } //i loop
+    fill(0);
+    text("Rainbow Pattern "+(currentState+1),width/2,height-20);
+  }
+}
+
+
+void mousePressed(){
+  if(mouseButton==LEFT){
+    currentState++;
+    currentState%=numPatterns;
+  }
+}
